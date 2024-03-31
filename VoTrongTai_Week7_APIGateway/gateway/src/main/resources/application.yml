@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: student
+          uri: lb://student
+          predicates:
+            - Path=/students/**
+        - id: course
+          uri: lb://course
+          predicates:
+            - Path=/courses/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    server-url:
+      defaultZone: http://localhost:8761/eureka
+    instance:
+      hostname: localhost
